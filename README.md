@@ -13,7 +13,6 @@ Techniques: Polling for real-time data processing
 Installation
 Clone the repository
 
-git clone https://github.com/Maitrey27/RealTrack.git
 cd RealTrack
 Backend Setup
 
