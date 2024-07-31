@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <script>
+        if (navigator.geolocation) {
+                let watchId = navigator.geolocation.watchPosition(
+                    (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        console.log(latitude, longitude);
+
+                        // Use a function to encapsulate the fetch request
+                        function sendLocationData() {
+                            fetch('http://127.0.0.1:5000', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ latitude, longitude })
+                            })
+                                .then(response => {
+                                    console.log('API response:', response);
+
+                                    // Handle successful response (e.g., update a map)
+                                    // Example:
+                                    // const mapElement = document.getElementById('map');
+                                    // if (mapElement) {
+                                    //   // ... update the map using mapElement ...
+                                    // }
+                                })
+                                .catch(error => {
+                                    console.error('API error:', error);
+                                    // Display an error message to the user
+                                });
+                        }
+
+                        // Call the function to send data
+                        sendLocationData();
+                    },
+                    (error) => {
+                        console.error("Geolocation error:", error);
+                        // Display a geolocation error message to the user
+                    },
+                    { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
+                );
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+            }
+
+
+
+    </script>
+</body>
+</html>
